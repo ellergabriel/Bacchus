@@ -25,7 +25,7 @@ public class Bacchus {
 
 	protected Defense defense;
 	protected Offense offense;
-	protected int testInt;
+
 	
 	
 	
