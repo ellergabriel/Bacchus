@@ -25,7 +25,7 @@ public class Bacchus {
 
 	protected Defense defense;
 	protected Offense offense;
-
+	
 	
 	
 	
@@ -1114,6 +1114,8 @@ public class Bacchus {
 			king = 1;
 		}
 		
+		//int for controlling next loop
+		int lcv = 0;
 		//Ints for storing current best coordinate and moveValues
 		int bestHorz, bestVert;
 		bestHorz = bestVert = 0;
@@ -1139,6 +1141,9 @@ public class Bacchus {
 		horz = piece.getHorz();
 		vert = piece.getVert();
 		
+		switch(lcv):
+			default:
+				break;
 		//For loop to check towards rank 1 direction
 		for (int i = 1; i < 8; i++) {
 			//Check for passed king
