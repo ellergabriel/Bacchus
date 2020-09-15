@@ -371,6 +371,7 @@ public class Queen extends Pieces{
 		}
 		
 		/*
+		 * will this ever work? who knows
 		//Move simulation; if move is valid, continue with simulation
 		if(this.validCoordinate(dummyBoard, horz, vert)) {
 			
