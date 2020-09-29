@@ -1,3 +1,4 @@
+package Bacchus;
 import java.util.*;
 public class Bishop extends Queen {
 

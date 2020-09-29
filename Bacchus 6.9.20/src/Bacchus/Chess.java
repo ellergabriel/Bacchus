@@ -1,3 +1,4 @@
+package Bacchus;
 import java.util.Scanner;
 
 public class Chess {

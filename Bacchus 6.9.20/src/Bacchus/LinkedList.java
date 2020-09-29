@@ -1,3 +1,4 @@
+package Bacchus;
 
 public class LinkedList {
 	private MoveList head;

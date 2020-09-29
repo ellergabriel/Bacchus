@@ -1,3 +1,4 @@
+package Bacchus;
 
 public class Squares extends Pieces{
 	
