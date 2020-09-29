@@ -51,7 +51,6 @@ public class MobilePlayground {
 		Bacchus other = new Bacchus(board, 'b');
 		//Chess.threatenUpdate(board);
 		
-		
 		//computer.duplicateBoard(board, computer.testBoard);
 		//computer.opening(board);
 		
@@ -80,6 +79,7 @@ public class MobilePlayground {
 			
 			//Bacchus move
 			other.movePiece(board);
+			//computer.movePiece(board);
 			
 			Pieces.printBoardWhite(board);
 			System.out.println();

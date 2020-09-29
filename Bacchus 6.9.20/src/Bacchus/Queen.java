@@ -425,7 +425,6 @@ public class Queen extends Pieces{
 			//dummy variable used for iteration looping
 			int dVert;
 			
-			
 			//Piece is traveling backwards
 			if (vertDistance < 0) { 
 				

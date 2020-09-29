@@ -19,17 +19,11 @@ public class Bacchus {
 	
 	protected ArrayList<MoveList> pieces;
 	protected ArrayList<MoveList> enemyPieces;
-	
 	protected ArrayList<MoveList> possibleMoves;
-	
 	protected ArrayList<MoveList> calculatedMoves;
 
 	protected Defense defense;
 	protected Offense offense;
-	
-	
-	
-	
 		
 			
 		/********* DEFENSE CLASS *******/
@@ -1710,15 +1704,24 @@ public class Bacchus {
 		double bestValue, currentValue;
 		bestValue = -100;
 		
-		
 		//pieceList board for calculations
 		Pieces[][] dummyBoard = new Pieces[8][8];
 		
+		int vert;
 		//Switch statement for different colors 
 		switch(pawn.getColor()) {
 		
 		//White pawn case
 		case 'w':
+			vert = 0 - pawn.getVert();
+			break;
+		case 'b':
+			vert = pawn.getVert();
+			break;
+		default:
+			vert = 0;
+			break;
+		}
 			//While loop, using lcv as control
 			while (lcv < 6) {
 				
@@ -1729,14 +1732,14 @@ public class Bacchus {
 					//Single move check 
 					if (lcv == 0) {
 						//If coordinate is valid, continue to calculation step; else, increment lcv
-						if (pawn.validCoordinate(dummyBoard, pawn.getHorz(), pawn.getVert() - 1)) {
+						if (pawn.validCoordinate(dummyBoard, pawn.getHorz(), Math.abs(vert + 1))) {
 							//Coordinate is valid, begin calculation
-							currentValue = this.calculateSingleMove(dummyBoard, pawn, pieceList, pawn.getHorz(), pawn.getVert() - 1);
+							currentValue = this.calculateSingleMove(dummyBoard, pawn, pieceList, pawn.getHorz(), Math.abs(vert + 1));
 							//If calculated move is better than current best, replace current best and best coordinates
 							if (currentValue > bestValue) {
 								bestValue = currentValue;
 								bestHorz = pawn.getHorz();
-								bestVert = pawn.getVert() - 1;
+								bestVert = Math.abs(vert + 1);
 								lcv++;
 							}
 							else {
@@ -1750,14 +1753,14 @@ public class Bacchus {
 					//Double Move Check
 					else if (lcv == 1) {
 						//Check if coordinate is valid
-						if (pawn.validCoordinate(dummyBoard, pawn.getHorz(), pawn.getVert() - 2)) {
+						if (pawn.validCoordinate(dummyBoard, pawn.getHorz(), Math.abs(vert + 2))) {
 							//Calculate move if move is valid
-							currentValue = this.calculateSingleMove(dummyBoard, pawn, pieceList, pawn.getHorz(), pawn.getVert() - 2);
+							currentValue = this.calculateSingleMove(dummyBoard, pawn, pieceList, pawn.getHorz(), Math.abs(vert + 2));
 							//If calculated move is better, set coordinates and move value
 							if (currentValue > bestValue) {
 								bestValue = currentValue;
 								bestHorz = pawn.getHorz();
-								bestVert = pawn.getVert() - 2;
+								bestVert = Math.abs(vert + 1);
 								lcv++;
 							}
 							else {
@@ -1771,13 +1774,13 @@ public class Bacchus {
 					//Check for left file take
 					else if (lcv == 2) {
 						//Check for valid coordinate
-						if (pawn.validCoordinate(dummyBoard, pawn.getHorz() - 1, pawn.getVert() - 1)) {
-							currentValue = this.calculateSingleMove(dummyBoard, pawn, pieceList, pawn.getHorz() - 1, pawn.getVert() - 1);
+						if (pawn.validCoordinate(dummyBoard, pawn.getHorz() - 1, Math.abs(vert + 1))) {
+							currentValue = this.calculateSingleMove(dummyBoard, pawn, pieceList, pawn.getHorz() - 1,Math.abs(vert + 1));
 							//Change values if left file take is better move
 							if (currentValue > bestValue) {
 								bestValue = currentValue;
 								bestHorz = pawn.getHorz() - 1;
-								bestVert = pawn.getVert() - 1;
+								bestVert = Math.abs(vert + 1);
 								lcv++;
 							}
 							else {
@@ -1791,13 +1794,13 @@ public class Bacchus {
 					//Check for right file take
 					else if (lcv == 3) {
 						//Check if coordinate is valid; if valid, continue with calculation
-						if (pawn.validCoordinate(dummyBoard, pawn.getHorz() + 1, pawn.getVert() - 1)) {
-							currentValue = this.calculateSingleMove(dummyBoard, pawn, pieceList, pawn.getHorz() + 1, pawn.getVert() - 1);
+						if (pawn.validCoordinate(dummyBoard, pawn.getHorz() + 1, Math.abs(vert + 1))) {
+							currentValue = this.calculateSingleMove(dummyBoard, pawn, pieceList, pawn.getHorz() + 1, Math.abs(vert + 1));
 							//If new value has better value, adjust coordinates
 							if (currentValue > bestValue) {
 								bestValue = currentValue;
 								bestHorz = pawn.getHorz() + 1;
-								bestVert = pawn.getVert() - 1;
+								bestVert = Math.abs(vert + 1);
 								lcv++;
 							}
 							else {
@@ -1816,13 +1819,13 @@ public class Bacchus {
 						}
 						else {
 							//If both have canPass marked, en passant can be performed; calculate based on that
-							if (pawn.validCoordinate(dummyBoard, pawn.getHorz() - 1, pawn.getVert() - 1)) {
+							if (pawn.validCoordinate(dummyBoard, pawn.getHorz() - 1, Math.abs(vert + 1))) {
 								//Begin move calculation
-								currentValue = this.calculateSingleMove(dummyBoard, pawn, pieceList, pawn.getHorz() - 1, pawn.getVert() - 1);
+								currentValue = this.calculateSingleMove(dummyBoard, pawn, pieceList, pawn.getHorz() - 1, Math.abs(vert + 1));
 								if (currentValue > bestValue) {
 									bestValue = currentValue;
 									bestHorz = pawn.getHorz() - 1;
-									bestVert = pawn.getVert() - 1;
+									bestVert = Math.abs(vert + 1);
 									lcv++;
 								}
 								else {
@@ -1842,13 +1845,13 @@ public class Bacchus {
 						}
 						else {
 							//Check for valid coordinate and begin calculation
-							if (pawn.validCoordinate(dummyBoard, pawn.getHorz() + 1, pawn.getVert() - 1)) {
+							if (pawn.validCoordinate(dummyBoard, pawn.getHorz() + 1, Math.abs(vert + 1))) {
 								//If coordinate is valid, continue to calculation
-								currentValue = this.calculateSingleMove(dummyBoard, pawn, pieceList, pawn.getHorz() + 1, pawn.getVert() - 1);
+								currentValue = this.calculateSingleMove(dummyBoard, pawn, pieceList, pawn.getHorz() + 1, Math.abs(vert + 1));
 								if (currentValue > bestValue) {
 									bestValue = currentValue;
 									bestHorz = pawn.getHorz() + 1;
-									bestVert = pawn.getVert() - 1;
+									bestVert = Math.abs(vert + 1);
 									lcv++;
 								}
 								else {
@@ -1867,10 +1870,11 @@ public class Bacchus {
 				} catch (NullPointerException n) {
 					lcv++;
 				}
-			} //End while loop
+			 //End while loop
 			//End white case 
-			break;
-		case 'b':
+			//break;
+		/*
+			//case 'b':
 			//While loop, using lcv as control
 			while (lcv < 6) {
 				
@@ -2023,9 +2027,12 @@ public class Bacchus {
 			//End white case 
 			break;
 		}//End switch
+		*/
+			}
 		
 		//Once switch is executed, return MoveList object with best coordinates
 		return new MoveList(pawn.getHorz(), pawn.getVert(), bestHorz, bestVert, bestValue);
+		
 		
 	}
 	
@@ -2185,10 +2192,9 @@ public class Bacchus {
 		//Check if piece is not added; if not, add to pieces ArrayList; else do nothing
 		try {
 			if (this.isPieceAdded(pieceList, piece.getHorz(), piece.getVert())) {
+				//If added, do nothing
+			} else {
 				pieceList.add(new MoveList(piece.getHorz(), piece.getVert()));
-			}
-			else {
-				//If piece is already in list, do nothing
 			}
 		} catch (NullPointerException e) {
 			//If exception is caught, add piece to passed array
@@ -2203,9 +2209,14 @@ public class Bacchus {
 	//PRE-CONDITION:	Passed coordinates must be 0 - 7 and pieces must be initialized
 	//POST-CONDITION:	Returns true if passed coordinates have not been added yet
 	public boolean isPieceAdded(ArrayList<MoveList> pieceList, int positionHorz, int positionVert) {
-		
+		int size;
+		if(pieceList.size() == 0) {
+			size = 1;
+		} else {
+			size = pieceList.size();
+		}
 		//For loop to check pieces ArrayList
-		for (int i = 0; i < pieceList.size(); i++) {
+		for (int i = 0; i < size; i++) {
 			//If any MoveList coordinates match passed coordinates, return true
 			if ((pieceList.get(i).getPositionHorz() == positionHorz) 
 				&& (pieceList.get(i).getPositionVert() == positionVert)){
