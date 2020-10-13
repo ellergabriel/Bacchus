@@ -476,6 +476,8 @@ public class Chess {
 			Pieces.printBoardBlack(board);
 			break;
 			}
+			
+			keyboard.close();
 		}
 		
 	}
